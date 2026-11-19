@@ -1,0 +1,162 @@
+{
+  "_commentaire": "Inventaire d'exemple. Chaque clé est facultative et remplace la valeur par défaut. Voir docs/INSTALLATION.md, étape 5.",
+  "equipements": {
+    "mikrotik": {
+      "nom": "Routeur MikroTik",
+      "type": "routeur",
+      "groupe": "mikrotik",
+      "parent": null,
+      "niveau": 0,
+      "ip": "192.168.10.198",
+      "url": "http://192.168.10.198"
+    },
+    "box": {
+      "nom": "Box internet",
+      "type": "box",
+      "groupe": "internet",
+      "parent": "mikrotik",
+      "niveau": 1,
+      "ip": "192.168.0.1",
+      "url": "http://192.168.0.1"
+    },
+    "internet": {
+      "nom": "Internet",
+      "type": "internet",
+      "groupe": "internet",
+      "parent": "box",
+      "niveau": 2,
+      "ip": null,
+      "url": null
+    },
+    "pve": {
+      "nom": "pve",
+      "type": "hyperviseur",
+      "groupe": "pve",
+      "parent": "mikrotik",
+      "niveau": 1,
+      "ip": "192.168.10.97",
+      "url": "https://pve.lan"
+    },
+    "pbs": {
+      "nom": "PBS",
+      "type": "sauvegarde",
+      "groupe": "pbs",
+      "parent": "mikrotik",
+      "niveau": 1,
+      "ip": "192.168.10.156",
+      "url": "https://pbs.lan"
+    },
+    "synology": {
+      "nom": "NAS Synology",
+      "type": "nas",
+      "groupe": "synology",
+      "parent": "mikrotik",
+      "niveau": 1,
+      "ip": "192.168.10.253",
+      "url": "https://nas.lan:5001"
+    },
+    "pc": {
+      "nom": "PC fixe",
+      "type": "pc",
+      "groupe": "appareils",
+      "parent": "mikrotik",
+      "niveau": 1,
+      "ip": "192.168.10.187",
+      "url": null
+    },
+    "onduleur": {
+      "nom": "Onduleur",
+      "type": "onduleur",
+      "groupe": "onduleur",
+      "parent": "pve",
+      "niveau": 2,
+      "ip": null,
+      "url": "https://ups.lan"
+    },
+    "ha": {
+      "nom": "Home Assistant",
+      "type": "domotique",
+      "groupe": "ha",
+      "parent": "box",
+      "niveau": 2,
+      "ip": "192.168.0.224",
+      "url": "https://ha.lan"
+    },
+    "switch-1": {
+      "nom": "Switch 1",
+      "type": "switch",
+      "groupe": "reseau",
+      "parent": "box",
+      "niveau": 2,
+      "ip": "192.168.0.185",
+      "url": null
+    },
+    "switch-2": {
+      "nom": "Switch 2",
+      "type": "switch",
+      "groupe": "reseau",
+      "parent": "box",
+      "niveau": 2,
+      "ip": "192.168.0.124",
+      "url": null
+    },
+    "camera": {
+      "nom": "Caméra",
+      "type": "appareil",
+      "groupe": "reseau",
+      "parent": "box",
+      "niveau": 2,
+      "ip": "192.168.0.54",
+      "url": null
+    }
+  },
+  "ports_fixes": {
+    "box": [
+      "ether1"
+    ],
+    "pve": [
+      "ether6",
+      "ether7"
+    ],
+    "synology": [
+      "ether5"
+    ]
+  },
+  "port_wan": "ether1",
+  "ip_vm": {
+    "210": "192.168.10.34",
+    "200": "192.168.10.31"
+  },
+  "ip_caddy_public": "192.168.10.17",
+  "kuma": {
+    "box": "net-box",
+    "ha": "host-homeassistant",
+    "switch-1": "net-switch-1",
+    "switch-2": "net-switch-2",
+    "camera": "net-camera",
+    "synology": "host-synology",
+    "pbs": "host-pbs"
+  },
+  "supervision_seule": [
+    "ha",
+    "switch-1",
+    "switch-2",
+    "camera"
+  ],
+  "eteints_expres": [
+    "switch-1",
+    "switch-2",
+    "camera"
+  ],
+  "prefixe_sauvegarde": "backup-",
+  "vm_speciales": {
+    "200": [
+      "nas-vm",
+      "truenas"
+    ]
+  },
+  "url_invites": {
+    "200": "https://truenas.lan"
+  },
+  "pool_truenas": "NAS"
+}

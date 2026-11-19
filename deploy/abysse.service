@@ -1,0 +1,28 @@
+[Unit]
+Description=Abysse - carte vivante du homelab
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=abysse
+Group=abysse
+EnvironmentFile=/etc/abysse/abysse.env
+WorkingDirectory=/opt/abysse
+ExecStart=/usr/bin/python3 -m abysse
+Restart=always
+RestartSec=5
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+StateDirectory=abysse
+ReadOnlyPaths=/opt/abysse /etc/abysse
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2082 @@
+{
+ "t": 1792970000.0,
+ "version": 1,
+ "sources": {
+  "mikrotik": "ok",
+  "proxmox": "ok",
+  "nut": "ok",
+  "influx": "ok",
+  "truenas": "desactivee"
+ },
+ "noeuds": [
+  {
+   "id": "mikrotik",
+   "nom": "Routeur MikroTik",
+   "type": "routeur",
+   "groupe": "mikrotik",
+   "parent": null,
+   "niveau": 0,
+   "etat": "on",
+   "ip": "192.168.10.198",
+   "url": "http://192.168.10.198",
+   "jauges": {
+    "cpu": 0.04,
+    "ram": {
+     "u": 172511232,
+     "t": 1073741824
+    }
+   },
+   "details": {
+    "uptime": 110111,
+    "version": "7.23.8 (long-term)"
+   }
+  },
+  {
+   "id": "box",
+   "nom": "box",
+   "type": "box",
+   "groupe": "internet",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.0.1",
+   "url": "http://192.168.0.1",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "internet",
+   "nom": "Internet",
+   "type": "internet",
+   "groupe": "internet",
+   "parent": "box",
+   "niveau": 2,
+   "etat": "on",
+   "ip": null,
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "pve",
+   "nom": "pve",
+   "type": "hyperviseur",
+   "groupe": "pve",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.97",
+   "url": "https://pve.lan",
+   "jauges": {
+    "cpu": 0.12,
+    "ram": {
+     "u": 41000000000,
+     "t": 134000000000
+    }
+   },
+   "details": {
+    "uptime": 112493,
+    "version": "pve-manager/9.2.21"
+   }
+  },
+  {
+   "id": "pbs",
+   "nom": "PBS",
+   "type": "sauvegarde",
+   "groupe": "pbs",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.156",
+   "url": "https://pbs.lan",
+   "jauges": {
+    "disque": {
+     "u": 1450000000000,
+     "t": 3840000000000
+    }
+   },
+   "details": {}
+  },
+  {
+   "id": "synology",
+   "nom": "NAS Synology",
+   "type": "nas",
+   "groupe": "synology",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.253",
+   "url": "https://nas.lan:5001",
+   "jauges": {
+    "disque": {
+     "u": 2200000000000,
+     "t": 3990000000000
+    }
+   },
+   "details": {}
+  },
+  {
+   "id": "pc",
+   "nom": "PC fixe",
+   "type": "pc",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.187",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "onduleur",
+   "nom": "Onduleur",
+   "type": "onduleur",
+   "groupe": "onduleur",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": null,
+   "url": "https://ups.lan",
+   "jauges": {
+    "batterie": 100,
+    "secteur": true,
+    "autonomie": 3000,
+    "tension": 231.4
+   },
+   "details": {}
+  },
+  {
+   "id": "ha",
+   "nom": "Home Assistant",
+   "type": "domotique",
+   "groupe": "ha",
+   "parent": "box",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.0.224",
+   "url": "https://ha.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "switch-1",
+   "nom": "Switch 1",
+   "type": "switch",
+   "groupe": "reseau",
+   "parent": "box",
+   "niveau": 2,
+   "etat": "eteint",
+   "ip": "192.168.0.185",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "switch-2",
+   "nom": "Switch 2",
+   "type": "switch",
+   "groupe": "reseau",
+   "parent": "box",
+   "niveau": 2,
+   "etat": "eteint",
+   "ip": "192.168.0.124",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "camera",
+   "nom": "Caméra",
+   "type": "appareil",
+   "groupe": "reseau",
+   "parent": "box",
+   "niveau": 2,
+   "etat": "eteint",
+   "ip": "192.168.0.54",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "ct-120",
+   "nom": "ticketing",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.152",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0002,
+    "ram": {
+     "u": 105123840,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 120,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-100",
+   "nom": "pihole",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.228",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0033,
+    "ram": {
+     "u": 83832832,
+     "t": 2147483648
+    }
+   },
+   "details": {
+    "vmid": 100,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-121",
+   "nom": "outils",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.115",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 49659904,
+     "t": 2147483648
+    }
+   },
+   "details": {
+    "vmid": 121,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-122",
+   "nom": "wiki",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.68",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0002,
+    "ram": {
+     "u": 107413504,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 122,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-101",
+   "nom": "portail",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.249",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 26365952,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 101,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-123",
+   "nom": "jeux-stats",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.203",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 58138624,
+     "t": 1073741824
+    }
+   },
+   "details": {
+    "vmid": 123,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-124",
+   "nom": "site-a",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.106",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 55623680,
+     "t": 1073741824
+    }
+   },
+   "details": {
+    "vmid": 124,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "ct-125",
+   "nom": "site-b",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.224",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 138907648,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 125,
+    "uptime": 112470
+   }
+  },
+  {
+   "id": "vm-210",
+   "nom": "telephonie",
+   "type": "vm",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.34",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0111,
+    "ram": {
+     "u": 1537073152,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 210,
+    "uptime": 112467
+   }
+  },
+  {
+   "id": "ct-126",
+   "nom": "projet",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.18",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 26382336,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 126,
+    "uptime": 112463
+   }
+  },
+  {
+   "id": "ct-102",
+   "nom": "supervision",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.55",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0226,
+    "ram": {
+     "u": 979267584,
+     "t": 8589934592
+    }
+   },
+   "details": {
+    "vmid": 102,
+    "uptime": 112489
+   }
+  },
+  {
+   "id": "ct-103",
+   "nom": "ups-web",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.72",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0012,
+    "ram": {
+     "u": 121696256,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 103,
+    "uptime": 112463
+   }
+  },
+  {
+   "id": "ct-104",
+   "nom": "trafic",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.212",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0437,
+    "ram": {
+     "u": 85626880,
+     "t": 1073741824
+    }
+   },
+   "details": {
+    "vmid": 104,
+    "uptime": 112463
+   }
+  },
+  {
+   "id": "ct-127",
+   "nom": "boutique",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.144",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 218169344,
+     "t": 2147483648
+    }
+   },
+   "details": {
+    "vmid": 127,
+    "uptime": 40557
+   }
+  },
+  {
+   "id": "vm-200",
+   "nom": "TrueNAS",
+   "type": "nas-vm",
+   "groupe": "truenas",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.31",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0108,
+    "ram": {
+     "u": 31538417664,
+     "t": 34359738368
+    }
+   },
+   "details": {
+    "vmid": 200,
+    "uptime": 112464
+   }
+  },
+  {
+   "id": "vm-220",
+   "nom": "windows-server",
+   "type": "vm",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "eteint",
+   "ip": "192.168.10.128",
+   "url": null,
+   "jauges": {
+    "cpu": 0.021,
+    "ram": {
+     "u": 34418831360,
+     "t": 34359738368
+    }
+   },
+   "details": {
+    "vmid": 220,
+    "uptime": 111862
+   }
+  },
+  {
+   "id": "ct-130",
+   "nom": "recettes",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.229",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 91672576,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 130,
+    "uptime": 112460
+   }
+  },
+  {
+   "id": "ct-131",
+   "nom": "sport",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.73",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0001,
+    "ram": {
+     "u": 72060928,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 131,
+    "uptime": 112460
+   }
+  },
+  {
+   "id": "ct-132",
+   "nom": "notes",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.170",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0001,
+    "ram": {
+     "u": 106266624,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 132,
+    "uptime": 112459
+   }
+  },
+  {
+   "id": "ct-128",
+   "nom": "site-c",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.165",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 80945152,
+     "t": 4284481536
+    }
+   },
+   "details": {
+    "vmid": 128,
+    "uptime": 112459
+   }
+  },
+  {
+   "id": "ct-129",
+   "nom": "site-d",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.9",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 81981440,
+     "t": 4284481536
+    }
+   },
+   "details": {
+    "vmid": 129,
+    "uptime": 112458
+   }
+  },
+  {
+   "id": "ct-105",
+   "nom": "OpenVPN",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "eteint",
+   "ip": "192.168.10.131",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 0,
+     "t": 2147483648
+    }
+   },
+   "details": {
+    "vmid": 105,
+    "uptime": 0
+   }
+  },
+  {
+   "id": "ct-140",
+   "nom": "vocal",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.93",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0005,
+    "ram": {
+     "u": 95490048,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 140,
+    "uptime": 112493
+   }
+  },
+  {
+   "id": "ct-106",
+   "nom": "photos",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.211",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0007,
+    "ram": {
+     "u": 160178176,
+     "t": 1073741824
+    }
+   },
+   "details": {
+    "vmid": 106,
+    "uptime": 112486
+   }
+  },
+  {
+   "id": "ct-141",
+   "nom": "assistant",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.30",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 32645120,
+     "t": 8589934592
+    }
+   },
+   "details": {
+    "vmid": 141,
+    "uptime": 112458
+   }
+  },
+  {
+   "id": "ct-199",
+   "nom": "test-web",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.47",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 48795648,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 199,
+    "uptime": 112458
+   }
+  },
+  {
+   "id": "ct-142",
+   "nom": "budget",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.127",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0,
+    "ram": {
+     "u": 143933440,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 142,
+    "uptime": 112458
+   }
+  },
+  {
+   "id": "ct-143",
+   "nom": "site-perso",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.186",
+   "url": null,
+   "jauges": {
+    "cpu": 0,
+    "ram": {
+     "u": 35557376,
+     "t": 536870912
+    }
+   },
+   "details": {
+    "vmid": 143,
+    "uptime": 112493
+   }
+  },
+  {
+   "id": "ct-110",
+   "nom": "Caddy",
+   "type": "ct",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 2,
+   "etat": "on",
+   "ip": "192.168.10.17",
+   "url": null,
+   "jauges": {
+    "cpu": 0.0004,
+    "ram": {
+     "u": 312066048,
+     "t": 4294967296
+    }
+   },
+   "details": {
+    "vmid": 110,
+    "uptime": 112493
+   }
+  },
+  {
+   "id": "site-exemple.fr",
+   "nom": "exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-143",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-site-a.exemple.fr",
+   "nom": "site-a.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-124",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://site-a.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-budget.exemple.fr",
+   "nom": "budget.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-142",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://budget.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-jeux.exemple.fr",
+   "nom": "jeux.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-123",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://jeux.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-site-c.exemple.fr",
+   "nom": "site-c.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-128",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://site-c.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-site-d.exemple.fr",
+   "nom": "site-d.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-129",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://site-d.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-assistant.exemple.fr",
+   "nom": "assistant.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-141",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://assistant.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-wiki.exemple.fr",
+   "nom": "wiki.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-122",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://wiki.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-photos.exemple.fr",
+   "nom": "photos.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-106",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://photos.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-recettes.exemple.fr",
+   "nom": "recettes.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-130",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://recettes.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-sport.exemple.fr",
+   "nom": "sport.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-131",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://sport.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-notes.exemple.fr",
+   "nom": "notes.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-132",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://notes.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-projet.exemple.fr",
+   "nom": "projet.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-126",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://projet.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-vocal.exemple.fr",
+   "nom": "vocal.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-140",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://vocal.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-exemple.com",
+   "nom": "exemple.com",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-125",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://exemple.com",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-boutique.exemple.com",
+   "nom": "boutique.exemple.com",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-127",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://boutique.exemple.com",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-outils.exemple.fr",
+   "nom": "outils.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-121",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://outils.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-grafana.exemple.fr",
+   "nom": "grafana.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-102",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://grafana.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-kuma.lan",
+   "nom": "kuma.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-102",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://kuma.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-grafana.lan",
+   "nom": "grafana.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-102",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://grafana.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-ups.lan",
+   "nom": "ups.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-103",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://ups.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-pve.exemple.fr",
+   "nom": "pve.exemple.fr",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "pve",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://pve.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-pbs.lan",
+   "nom": "pbs.lan",
+   "type": "site",
+   "groupe": "pbs",
+   "parent": "pbs",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://pbs.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-ha.exemple.fr",
+   "nom": "ha.exemple.fr",
+   "type": "site",
+   "groupe": "ha",
+   "parent": "ha",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://ha.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-nas.exemple.fr",
+   "nom": "nas.exemple.fr",
+   "type": "site",
+   "groupe": "synology",
+   "parent": "synology",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://nas.exemple.fr",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-medias.lan",
+   "nom": "medias.lan",
+   "type": "site",
+   "groupe": "truenas",
+   "parent": "vm-200",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://medias.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-boutique.lan",
+   "nom": "boutique.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-127",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://boutique.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-perso.lan",
+   "nom": "perso.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-143",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://perso.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-budget.lan",
+   "nom": "budget.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-142",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://budget.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-jeux.lan",
+   "nom": "jeux.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-123",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://jeux.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-site-a.lan",
+   "nom": "site-a.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-124",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://site-a.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "site-site-b.lan",
+   "nom": "site-b.lan",
+   "type": "site",
+   "groupe": "pve",
+   "parent": "ct-125",
+   "niveau": 3,
+   "etat": "on",
+   "ip": null,
+   "url": "https://site-b.lan",
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-c025e9720242",
+   "nom": "Appareil TP-Link",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.230",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-d83add43159b",
+   "nom": "Appareil Raspberry Pi",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.74",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-020000014887",
+   "nom": "Appareil 02:00:00:01:48:87",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.171",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-3c7c3f27f0d2",
+   "nom": "Appareil ASUSTek",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "eteint",
+   "ip": "192.168.10.15",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-f09fc2843491",
+   "nom": "Appareil Ubiquiti",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.112",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-b827eb84224f",
+   "nom": "Appareil Raspberry Pi",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.209",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-a45e605b66aa",
+   "nom": "Appareil Apple",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "eteint",
+   "ip": "192.168.10.53",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  },
+  {
+   "id": "app-00e04c3792b9",
+   "nom": "Appareil Realtek",
+   "type": "appareil",
+   "groupe": "appareils",
+   "parent": "mikrotik",
+   "niveau": 1,
+   "etat": "on",
+   "ip": "192.168.10.150",
+   "url": null,
+   "jauges": {},
+   "details": {}
+  }
+ ],
+ "liens": [
+  {
+   "id": "mikrotik>box",
+   "de": "mikrotik",
+   "vers": "box",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 1200000.0,
+   "montant": 48000000.0
+  },
+  {
+   "id": "box>internet",
+   "de": "box",
+   "vers": "internet",
+   "type": "wan",
+   "etat": "on",
+   "descendant": 1200000.0,
+   "montant": 48000000.0
+  },
+  {
+   "id": "mikrotik>pve",
+   "de": "mikrotik",
+   "vers": "pve",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 12000000.0,
+   "montant": 800000.0
+  },
+  {
+   "id": "mikrotik>pbs",
+   "de": "mikrotik",
+   "vers": "pbs",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 20000.0,
+   "montant": 15000.0
+  },
+  {
+   "id": "mikrotik>synology",
+   "de": "mikrotik",
+   "vers": "synology",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 3000.0,
+   "montant": 2000.0
+  },
+  {
+   "id": "mikrotik>pc",
+   "de": "mikrotik",
+   "vers": "pc",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 52000000.0,
+   "montant": 2400000.0
+  },
+  {
+   "id": "pve>onduleur",
+   "de": "pve",
+   "vers": "onduleur",
+   "type": "usb",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "box>ha",
+   "de": "box",
+   "vers": "ha",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "box>switch-1",
+   "de": "box",
+   "vers": "switch-1",
+   "type": "ethernet",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "box>switch-2",
+   "de": "box",
+   "vers": "switch-2",
+   "type": "ethernet",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "box>camera",
+   "de": "box",
+   "vers": "camera",
+   "type": "ethernet",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "pve>ct-120",
+   "de": "pve",
+   "vers": "ct-120",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 6000.0,
+   "montant": 39200.0
+  },
+  {
+   "id": "pve>ct-100",
+   "de": "pve",
+   "vers": "ct-100",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 7000.0,
+   "montant": 40000.0
+  },
+  {
+   "id": "pve>ct-121",
+   "de": "pve",
+   "vers": "ct-121",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 8000.0,
+   "montant": 40800.0
+  },
+  {
+   "id": "pve>ct-122",
+   "de": "pve",
+   "vers": "ct-122",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 9000.0,
+   "montant": 41600.0
+  },
+  {
+   "id": "pve>ct-101",
+   "de": "pve",
+   "vers": "ct-101",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 10000.0,
+   "montant": 42400.0
+  },
+  {
+   "id": "pve>ct-123",
+   "de": "pve",
+   "vers": "ct-123",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 11000.0,
+   "montant": 43200.0
+  },
+  {
+   "id": "pve>ct-124",
+   "de": "pve",
+   "vers": "ct-124",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 12000.0,
+   "montant": 1600.0
+  },
+  {
+   "id": "pve>ct-125",
+   "de": "pve",
+   "vers": "ct-125",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 13000.0,
+   "montant": 2400.0
+  },
+  {
+   "id": "pve>vm-210",
+   "de": "pve",
+   "vers": "vm-210",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 14000.0,
+   "montant": 3200.0
+  },
+  {
+   "id": "pve>ct-126",
+   "de": "pve",
+   "vers": "ct-126",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 17000.0,
+   "montant": 5600.0
+  },
+  {
+   "id": "pve>ct-102",
+   "de": "pve",
+   "vers": "ct-102",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 18000.0,
+   "montant": 6400.0
+  },
+  {
+   "id": "pve>ct-103",
+   "de": "pve",
+   "vers": "ct-103",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 19000.0,
+   "montant": 7200.0
+  },
+  {
+   "id": "pve>ct-104",
+   "de": "pve",
+   "vers": "ct-104",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 20000.0,
+   "montant": 8000.0
+  },
+  {
+   "id": "pve>ct-127",
+   "de": "pve",
+   "vers": "ct-127",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 21000.0,
+   "montant": 8800.0
+  },
+  {
+   "id": "pve>vm-200",
+   "de": "pve",
+   "vers": "vm-200",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 10000.0,
+   "montant": 35200.0
+  },
+  {
+   "id": "pve>vm-220",
+   "de": "pve",
+   "vers": "vm-220",
+   "type": "virtuel",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "pve>ct-130",
+   "de": "pve",
+   "vers": "ct-130",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 29000.0,
+   "montant": 8000.0
+  },
+  {
+   "id": "pve>ct-131",
+   "de": "pve",
+   "vers": "ct-131",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 30000.0,
+   "montant": 8800.0
+  },
+  {
+   "id": "pve>ct-132",
+   "de": "pve",
+   "vers": "ct-132",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 31000.0,
+   "montant": 9600.0
+  },
+  {
+   "id": "pve>ct-128",
+   "de": "pve",
+   "vers": "ct-128",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 59000.0,
+   "montant": 32000.0
+  },
+  {
+   "id": "pve>ct-129",
+   "de": "pve",
+   "vers": "ct-129",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 60000.0,
+   "montant": 32800.0
+  },
+  {
+   "id": "pve>ct-105",
+   "de": "pve",
+   "vers": "ct-105",
+   "type": "virtuel",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "pve>ct-140",
+   "de": "pve",
+   "vers": "ct-140",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 15000.0,
+   "montant": 24800.0
+  },
+  {
+   "id": "pve>ct-106",
+   "de": "pve",
+   "vers": "ct-106",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 18000.0,
+   "montant": 20000.0
+  },
+  {
+   "id": "pve>ct-141",
+   "de": "pve",
+   "vers": "ct-141",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 21000.0,
+   "montant": 15200.0
+  },
+  {
+   "id": "pve>ct-199",
+   "de": "pve",
+   "vers": "ct-199",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 10000.0,
+   "montant": 28800.0
+  },
+  {
+   "id": "pve>ct-142",
+   "de": "pve",
+   "vers": "ct-142",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 90000.0,
+   "montant": 32800.0
+  },
+  {
+   "id": "pve>ct-143",
+   "de": "pve",
+   "vers": "ct-143",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 91000.0,
+   "montant": 33600.0
+  },
+  {
+   "id": "pve>ct-110",
+   "de": "pve",
+   "vers": "ct-110",
+   "type": "virtuel",
+   "etat": "on",
+   "descendant": 28000.0,
+   "montant": 39200.0
+  },
+  {
+   "id": "ct-143>site-exemple.fr",
+   "de": "ct-143",
+   "vers": "site-exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-124>site-site-a.exemple.fr",
+   "de": "ct-124",
+   "vers": "site-site-a.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-142>site-budget.exemple.fr",
+   "de": "ct-142",
+   "vers": "site-budget.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-123>site-jeux.exemple.fr",
+   "de": "ct-123",
+   "vers": "site-jeux.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-128>site-site-c.exemple.fr",
+   "de": "ct-128",
+   "vers": "site-site-c.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-129>site-site-d.exemple.fr",
+   "de": "ct-129",
+   "vers": "site-site-d.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-141>site-assistant.exemple.fr",
+   "de": "ct-141",
+   "vers": "site-assistant.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-122>site-wiki.exemple.fr",
+   "de": "ct-122",
+   "vers": "site-wiki.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-106>site-photos.exemple.fr",
+   "de": "ct-106",
+   "vers": "site-photos.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-130>site-recettes.exemple.fr",
+   "de": "ct-130",
+   "vers": "site-recettes.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-131>site-sport.exemple.fr",
+   "de": "ct-131",
+   "vers": "site-sport.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-132>site-notes.exemple.fr",
+   "de": "ct-132",
+   "vers": "site-notes.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-126>site-projet.exemple.fr",
+   "de": "ct-126",
+   "vers": "site-projet.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-140>site-vocal.exemple.fr",
+   "de": "ct-140",
+   "vers": "site-vocal.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-125>site-exemple.com",
+   "de": "ct-125",
+   "vers": "site-exemple.com",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-127>site-boutique.exemple.com",
+   "de": "ct-127",
+   "vers": "site-boutique.exemple.com",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-121>site-outils.exemple.fr",
+   "de": "ct-121",
+   "vers": "site-outils.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-102>site-grafana.exemple.fr",
+   "de": "ct-102",
+   "vers": "site-grafana.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-102>site-kuma.lan",
+   "de": "ct-102",
+   "vers": "site-kuma.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-102>site-grafana.lan",
+   "de": "ct-102",
+   "vers": "site-grafana.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-103>site-ups.lan",
+   "de": "ct-103",
+   "vers": "site-ups.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "pve>site-pve.exemple.fr",
+   "de": "pve",
+   "vers": "site-pve.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "pbs>site-pbs.lan",
+   "de": "pbs",
+   "vers": "site-pbs.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ha>site-ha.exemple.fr",
+   "de": "ha",
+   "vers": "site-ha.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "synology>site-nas.exemple.fr",
+   "de": "synology",
+   "vers": "site-nas.exemple.fr",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "vm-200>site-medias.lan",
+   "de": "vm-200",
+   "vers": "site-medias.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-127>site-boutique.lan",
+   "de": "ct-127",
+   "vers": "site-boutique.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-143>site-perso.lan",
+   "de": "ct-143",
+   "vers": "site-perso.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-142>site-budget.lan",
+   "de": "ct-142",
+   "vers": "site-budget.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-123>site-jeux.lan",
+   "de": "ct-123",
+   "vers": "site-jeux.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-124>site-site-a.lan",
+   "de": "ct-124",
+   "vers": "site-site-a.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "ct-125>site-site-b.lan",
+   "de": "ct-125",
+   "vers": "site-site-b.lan",
+   "type": "site",
+   "etat": "on",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "mikrotik>app-c025e9720242",
+   "de": "mikrotik",
+   "vers": "app-c025e9720242",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  },
+  {
+   "id": "mikrotik>app-d83add43159b",
+   "de": "mikrotik",
+   "vers": "app-d83add43159b",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  },
+  {
+   "id": "mikrotik>app-020000014887",
+   "de": "mikrotik",
+   "vers": "app-020000014887",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  },
+  {
+   "id": "mikrotik>app-3c7c3f27f0d2",
+   "de": "mikrotik",
+   "vers": "app-3c7c3f27f0d2",
+   "type": "ethernet",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "mikrotik>app-f09fc2843491",
+   "de": "mikrotik",
+   "vers": "app-f09fc2843491",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  },
+  {
+   "id": "mikrotik>app-b827eb84224f",
+   "de": "mikrotik",
+   "vers": "app-b827eb84224f",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  },
+  {
+   "id": "mikrotik>app-a45e605b66aa",
+   "de": "mikrotik",
+   "vers": "app-a45e605b66aa",
+   "type": "ethernet",
+   "etat": "eteint",
+   "descendant": null,
+   "montant": null
+  },
+  {
+   "id": "mikrotik>app-00e04c3792b9",
+   "de": "mikrotik",
+   "vers": "app-00e04c3792b9",
+   "type": "ethernet",
+   "etat": "on",
+   "descendant": 64000.0,
+   "montant": 12000.0
+  }
+ ]
+}

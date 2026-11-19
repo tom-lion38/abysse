@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abysse · homelab</title>
+<meta name="description" content="Carte vivante du homelab : graphe 3D animé, états, jauges et débits en direct.">
+<meta name="theme-color" content="#01040a">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%2301040a'/%3E%3Cellipse cx='16' cy='19' rx='7.5' ry='5.5' fill='%237fe7ff'/%3E%3Cpath d='M7 12c-3 0-4-4-2-6l2 2.5L8.5 5.5c2 2 1.5 6.5-1.5 6.5zM25 12c3 0 4-4 2-6l-2 2.5-1.5-3c-2 2-1.5 6.5 1.5 6.5z' fill='%237fe7ff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/abysse.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<canvas id="scene" tabindex="0" role="img" aria-label="Carte du homelab : le MikroTik au centre, les serveurs, conteneurs et sites autour. L’onglet Liste donne la même information en texte."></canvas>
+<div class="fx fx-vignette" aria-hidden="true"></div>
+<div class="fx fx-alerte" aria-hidden="true"></div>
+
+<header class="barre" id="barre">
+  <div class="marque">
+    <svg class="crabe" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <radialGradient id="crabeLueur" cx="50%" cy="42%" r="62%">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".38" stop-color="#c4f7ff"/>
+          <stop offset="1" stop-color="#2f9dff"/>
+        </radialGradient>
+      </defs>
+      <g class="crabe-pattes" fill="none" stroke="#7fe7ff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.2 19.2 5.6 20.6 3.4 24.6"/>
+        <path d="M10.9 21.4 7.2 24.6 6.2 28"/>
+        <path d="M21.8 19.2 26.4 20.6 28.6 24.6"/>
+        <path d="M21.1 21.4 24.8 24.6 25.8 28"/>
+        <path d="M11.2 15.4C8.4 14.6 7.2 12.6 7.2 10.2"/>
+        <path d="M20.8 15.4C23.6 14.6 24.8 12.6 24.8 10.2"/>
+      </g>
+      <path class="crabe-pince crabe-pince-g" d="M7.2 10.4C4.2 10.4 2.8 6.6 5 4l2 2.8 1.6-3.2c2.4 1.8 2.2 6.8-1.4 6.8z" fill="url(#crabeLueur)"/>
+      <path class="crabe-pince crabe-pince-d" d="M24.8 10.4c3 0 4.4-3.8 2.2-6.4l-2 2.8-1.6-3.2c-2.4 1.8-2.2 6.8 1.4 6.8z" fill="url(#crabeLueur)"/>
+      <path d="M13.6 13.6v-2.8M18.4 13.6v-2.8" stroke="#c4f7ff" stroke-width="1.1" stroke-linecap="round"/>
+      <ellipse class="crabe-corps" cx="16" cy="18.4" rx="7.6" ry="5.4" fill="url(#crabeLueur)"/>
+      <circle cx="13.6" cy="10.2" r="1.25" fill="#ffffff"/>
+      <circle cx="18.4" cy="10.2" r="1.25" fill="#ffffff"/>
+    </svg>
+    <div class="marque-texte"><strong>Abysse</strong><span class="marque-sep" aria-hidden="true">·</span><small>homelab</small></div>
+  </div>
+
+  <nav class="onglets" role="tablist" aria-label="Vues">
+    <span class="onglets-encre" id="ongletsEncre" aria-hidden="true"></span>
+    <button type="button" role="tab" id="ongletCarte" data-vue="carte" aria-selected="true" aria-controls="scene" title="Carte (C)">Carte</button>
+    <button type="button" role="tab" id="ongletListe" data-vue="liste" aria-selected="false" aria-controls="liste" title="Liste (L)">Liste</button>
+  </nav>
+
+  <div class="resume" id="resume" aria-live="polite">
+    <span class="puce" id="resumeEnLigne" title="Éléments en ligne"><i class="point" aria-hidden="true"></i><b>–</b><span class="etiquette">en ligne</span></span>
+    <span class="puce puce-wan" id="resumeWan" title="Débit WAN"><span class="etiquette">WAN</span><b class="dn">↓ –</b><b class="up">↑ –</b></span>
+    <span class="puce" id="resumeOnduleur" title="Onduleur">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 1.5 4 9h4l-1 5.5L12 7H8z" stroke-linejoin="round"/></svg>
+      <span class="etiquette">Onduleur</span><b>–</b>
+    </span>
+  </div>
+
+  <button type="button" class="bouton-modifier bouton-actualiser" id="boutonActualiser" title="Relire tout de suite : sites de Caddy (via Phare), Proxmox, MikroTik, onduleur">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9" stroke-linecap="round"/><path d="M13.6 2.2v3.2h-3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Actualiser</span>
+  </button>
+
+  <button type="button" class="bouton-modifier" id="boutonModifier" aria-pressed="false" title="Renommer, cacher, ajouter des liens">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10.8 2.6 13.4 5.2 6 12.6 2.8 13.2 3.4 10z" stroke-linejoin="round"/><path d="m9.4 4 2.6 2.6"/></svg>
+    <span>Modifier</span>
+  </button>
+
+  <div class="horloge" id="horloge"><time id="horlogeHeure">--:--:--</time><span id="horlogeDate">—</span></div>
+</header>
+
+<div class="bandeau" id="bandeau" role="status" aria-live="assertive" hidden></div>
+
+<section class="vue-liste" id="liste" aria-label="Liste des machines et des sites" hidden></section>
+
+<aside class="panneau" id="panneau" aria-label="Détails" aria-hidden="true"></aside>
+
+<div class="infobulle" id="infobulle" role="tooltip"></div>
+
+<footer class="frise" id="frise" aria-label="Frise du temps"></footer>
+
+<aside class="legende" id="legende" aria-label="Légende de la carte"></aside>
+
+<div id="annonces" class="sr" aria-live="polite"></div>
+<noscript><p class="sans-js">Abysse a besoin de JavaScript pour dessiner la carte.</p></noscript>
+</body>
+</html>

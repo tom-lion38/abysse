@@ -1,0 +1,311 @@
+# Caddyfile d'exemple pour les tests : mots de passe et clés remplacés par HASH_MASQUE / CLE_MASQUEE.
+# Il reprend les cas rencontrés dans un vrai Caddyfile : snippets, handle, matchers, transport,
+# plusieurs noms sur un bloc, redirections sans reverse_proxy.
+
+# Journal commun : une ligne JSON par requête, envoyée en UDP au CT des statistiques.
+(trafic) {
+	log trafic {
+		output net udp/192.168.10.190:5140 {
+			soft_start
+		}
+		format json
+	}
+}
+
+pve.exemple.fr {
+	import trafic
+	basic_auth {
+		admin HASH_MASQUE
+	}
+	reverse_proxy https://192.168.10.97:8006 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
+ha.exemple.fr {
+	import trafic
+	reverse_proxy https://192.168.0.224:8123 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
+nas.exemple.fr {
+	import trafic
+	basic_auth {
+		admin HASH_MASQUE
+	}
+	reverse_proxy https://192.168.10.253:5001 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
+exemple.fr {
+	import trafic
+	# une API à part, servie par un autre CT
+	handle /api/* {
+		reverse_proxy 192.168.10.55:8099
+	}
+	handle {
+		reverse_proxy 192.168.10.186:80
+	}
+}
+
+outils.exemple.fr {
+	import trafic
+	tls admin@exemple.fr {
+		ca https://acme.zerossl.com/v2/DV90
+	}
+	reverse_proxy 192.168.10.115:80
+}
+
+vocal.exemple.fr {
+	import trafic
+	# seule une page d'état est publiée, le reste répond un texte fixe
+	handle /etat/* {
+		reverse_proxy 192.168.10.93:80
+	}
+	handle {
+		respond "Utilisez le client vocal avec l'adresse vocal.exemple.fr" 200
+	}
+}
+
+photos.exemple.fr {
+	import trafic
+	log {
+		output file /var/log/caddy/photos-access.log {
+			roll_size 8MiB
+			roll_keep 3
+			roll_keep_for 336h
+		}
+		format json {
+			time_format "iso8601"
+		}
+	}
+	@admin path /admin*
+	basic_auth @admin {
+		admin HASH_MASQUE
+	}
+	header Strict-Transport-Security "max-age=31536000"
+	reverse_proxy 192.168.10.211:8000 {
+		header_up X-Forwarded-For {remote_host}
+	}
+}
+
+assistant.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.30:80
+}
+
+budget.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.127:3000
+}
+
+wiki.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.68:80
+}
+
+site-c.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.165:80
+}
+
+jeux.exemple.fr {
+	import trafic
+	encode zstd gzip
+	reverse_proxy 192.168.10.203:5173
+}
+
+site-d.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.9:80
+}
+
+site-a.exemple.fr {
+	import trafic
+	reverse_proxy 192.168.10.106:3000
+}
+
+notes.exemple.fr {
+	import trafic
+	basic_auth {
+		lecteur HASH_MASQUE
+	}
+	reverse_proxy 192.168.10.170:8080
+}
+
+projet.exemple.fr {
+	import trafic
+	basic_auth {
+		admin HASH_MASQUE
+	}
+	reverse_proxy 192.168.10.18:80
+}
+
+grafana.exemple.fr {
+	import trafic
+	encode zstd gzip
+	reverse_proxy http://192.168.10.55:3000
+}
+
+ancien.exemple.fr {
+	import trafic
+	# ancienne adresse : renvoi permanent
+	redir https://exemple.com{uri} permanent
+}
+
+recettes.exemple.fr {
+	import trafic
+	# une route d'API avec son propre compte, le reste derrière un autre compte
+	handle /api/sante {
+		basic_auth {
+			appli HASH_MASQUE
+		}
+		reverse_proxy 192.168.10.229:3000 {
+			header_up X-Cle CLE_MASQUEE
+			header_up X-Utilisateur {http.auth.user.id}
+		}
+	}
+	handle {
+		basic_auth {
+			utilisateur1 HASH_MASQUE
+			utilisateur2 HASH_MASQUE
+		}
+		reverse_proxy 192.168.10.229:3000 {
+			header_up X-Cle CLE_MASQUEE
+			header_up X-Utilisateur {http.auth.user.id}
+		}
+	}
+}
+
+sport.exemple.fr {
+	import trafic
+	basic_auth {
+		utilisateur1 HASH_MASQUE
+		utilisateur2 HASH_MASQUE
+	}
+	reverse_proxy 192.168.10.73:3100 {
+		header_up X-Cle CLE_MASQUEE
+		header_up X-Utilisateur {http.auth.user.id}
+	}
+}
+
+exemple.com {
+	import trafic
+	log {
+		output file /var/log/caddy/exemple-access.log {
+			roll_size 8MiB
+			roll_keep 3
+			roll_keep_for 336h
+		}
+		format json {
+			time_format "iso8601"
+		}
+	}
+	encode zstd gzip
+	reverse_proxy 192.168.10.224:3000
+}
+
+www.exemple.com {
+	import trafic
+	redir https://exemple.com{uri} permanent
+}
+
+boutique.exemple.com {
+	import trafic
+	encode zstd gzip
+	# administration : réseau local et VPN seulement
+	@admin_ext {
+		path /admin /admin/* /api/admin /api/admin/*
+		not remote_ip 192.168.10.0/24 10.8.0.0/24 10.9.0.0/24
+	}
+	respond @admin_ext 404
+	request_body {
+		max_size 60MB
+	}
+	reverse_proxy 192.168.10.144:3000
+}
+
+# Noms en .lan : certificat interne de Caddy, réponse 404 hors du réseau local et du VPN.
+(lan_only) {
+	tls internal
+	@ext not remote_ip 192.168.10.0/24 10.8.0.0/24 10.9.0.0/24
+	respond @ext 404
+}
+boutique.lan, https://192.168.10.17:8443 {
+	import lan_only
+	request_body {
+		max_size 60MB
+	}
+	reverse_proxy 192.168.10.144:3000
+}
+grafana.lan {
+	import lan_only
+	reverse_proxy http://192.168.10.55:3000
+}
+kuma.lan {
+	import lan_only
+	reverse_proxy 192.168.10.55:3001
+}
+ups.lan {
+	import lan_only
+	reverse_proxy 192.168.10.72:8080
+}
+site-b.lan {
+	import lan_only
+	reverse_proxy 192.168.10.224:3000
+}
+perso.lan {
+	import lan_only
+	reverse_proxy 192.168.10.186:80
+}
+# Services à certificat interne : Caddy vérifie leur certificat avec leur propre autorité.
+pve.lan {
+	import lan_only
+	reverse_proxy https://192.168.10.97:8006 {
+		transport http {
+			tls_trust_pool file /etc/caddy/upstream-ca/pve-root-ca.pem
+		}
+	}
+}
+pbs.lan {
+	import lan_only
+	reverse_proxy https://192.168.10.156:8007 {
+		transport http {
+			tls_trust_pool file /etc/caddy/upstream-ca/pbs-cert.pem
+			tls_server_name pbs.home
+		}
+	}
+}
+ha.lan {
+	import lan_only
+	reverse_proxy https://192.168.0.224:8123 {
+		transport http {
+			tls_server_name domotique.exemple.org
+		}
+	}
+}
+medias.lan {
+	import lan_only
+	redir / /web/ 302
+	reverse_proxy 192.168.10.31:8096
+}
+budget.lan {
+	import lan_only
+	reverse_proxy 192.168.10.127:3000
+}
+jeux.lan {
+	import lan_only
+	reverse_proxy 192.168.10.203:5173
+}
+site-a.lan {
+	import lan_only
+	reverse_proxy 192.168.10.106:3000
+}

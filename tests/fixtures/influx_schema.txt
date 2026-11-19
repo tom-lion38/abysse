@@ -1,0 +1,49 @@
+### measurements homelab
+---------------------- app_version appareil cpu disk diskio docker docker_container_blkio docker_container_cpu docker_container_he... docker_container_mem docker_container_net docker_container_st... expressjs_number_of... mem mikrotik mikrotik_cloud mikrotik_conn mikrotik_dns mikrotik_ether mikrotik_filter mikrotik_iface mikrotik_lease mikrotik_nat mikrotik_port mikrotik_resource mikrotik_session mikrotik_wan monitor_cert_days_r... monitor_cert_is_valid monitor_response_time monitor_status net nodejs_active_handles nodejs_active_handl... nodejs_active_requests nodejs_active_reque... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_eventloop_la... nodejs_external_mem... nodejs_gc_duration_... nodejs_heap_size_to... nodejs_heap_size_us... nodejs_heap_space_s... nodejs_heap_space_s... nodejs_heap_space_s... nodejs_version_info pihole pihole_clients pihole_replies pihole_top_blocked ping process_cpu_seconds... process_cpu_system_... process_cpu_user_se... process_heap_bytes process_max_fds process_open_fds process_resident_me... process_start_time_... process_virtual_mem... processes swap switch synology system upsd vpn vpn_etat vpn_resume wifi_resume zfs zfs_dataset_etat zfs_pool_etat 
+### measurements proxmox
+---------------------- ballooninfo blockstat cpustat memory nics proxmox-support system 
+### synology_raid last
+
+### kuma last
+
+### proxmox system lxc 102 last
+#group,false,false,true,true,false,false,true,true,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string,string,string
+#default,_result,,,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,nodename,object,vmid
+,,0,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0.0383721748291128,cpu,system,supervision,pve,lxc,102
+,,1,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,2,cpus,system,supervision,pve,lxc,102
+,,2,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,15085723648,disk,system,supervision,pve,lxc,102
+,,3,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,8303247360,diskread,system,supervision,pve,lxc,102
+,,4,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,31766609920,diskwrite,system,supervision,pve,lxc,102
+,,5,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,31526436864,maxdisk,system,supervision,pve,lxc,102
+,,6,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,8589934592,maxmem,system,supervision,pve,lxc,102
+,,7,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,536870912,maxswap,system,supervision,pve,lxc,102
+,,8,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,986161152,mem,system,supervision,pve,lxc,102
+
+#group,false,false,true,true,false,false,true,true,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,string,string,string,string,string
+#default,_result,,,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,nodename,object,vmid
+,,9,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,supervision,name,system,supervision,pve,lxc,102
+
+#group,false,false,true,true,false,false,true,true,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string,string,string
+#default,_result,,,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,nodename,object,vmid
+,,10,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,2379911613,netin,system,supervision,pve,lxc,102
+,,11,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,884108417,netout,system,supervision,pve,lxc,102
+,,12,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,3301,pid,system,supervision,pve,lxc,102
+,,13,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0,pressurecpufull,system,supervision,pve,lxc,102
+,,14,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0.55,pressurecpusome,system,supervision,pve,lxc,102
+,,15,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0,pressureiofull,system,supervision,pve,lxc,102
+,,16,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0,pressureiosome,system,supervision,pve,lxc,102
+,,17,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0,pressurememoryfull,system,supervision,pve,lxc,102
+,,18,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,0,pressurememorysome,system,supervision,pve,lxc,102
+
+#group,false,false,true,true,false,false,true,true,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,string,string,string,string,string
+#default,_result,,,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,nodename,object,vmid
+,,19,2026-10-26T00:12:53.580745117Z,2026-10-26T00:17:53.580745117Z,2026-10-26T00:17:53Z,running,status,system,supervision,pve,lxc,102
+
